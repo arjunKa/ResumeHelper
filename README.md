@@ -1,6 +1,6 @@
-# CV_Manager
-A python app with an easy use GUI that allows for the use to easily manage their Resume and Cover Letter files.
-The app allows for your job appliaction files to be labelled based on time/date and details such as the company name.
+# CV Helper
+A python app with an easy to use GUI that allows you to manage your Resume and Cover Letter files. App also features ability to create custome reccomendations for Resume and Cover Letter based on analysis of job posting.
+The app allows for your job appliaction files to be consistently labelled based on time/date and details such as the company name, so that all your job application files can be easily organized.
 
 ## Features to be released:
 - ability to manipulate text within your cover letter files without ever needing to open the file
