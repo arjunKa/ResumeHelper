@@ -4,24 +4,31 @@ import os
 
 x = datetime.now()
 
-class FileManage():
+
+class FileManage:
     def __init__(self):
-        self.path = ''
-    
+        self.path = ""
+
+
 fm = FileManage()
 
+
 def chooseFolder():
-    path = askdirectory(title='Select Folder') # shows dialog box and return the path
+    path = askdirectory(title="Select Folder")  # shows dialog box and return the path
     fm.path = path
     return path
-    print(fm.path)  
+    print(fm.path)
 
-    
-    
-    
+
 def createFile(fname, lname):
     x = datetime.now()
-    file_path = os.path.join(fm.path, 'Resume_' + fname.strip().replace(" ", "")+ lname.strip().replace(" ", "") + "_" + x.strftime('%d-%m-%Y.docx'))
+    file_path = os.path.join(
+        fm.path,
+        "Resume_"
+        + fname.strip().replace(" ", "")
+        + lname.strip().replace(" ", "")
+        + "_"
+        + x.strftime("%d-%m-%Y.docx"),
+    )
     print(fm.path)
-    f = open(file_path, 'a')
-    
+    f = open(file_path, "a")
