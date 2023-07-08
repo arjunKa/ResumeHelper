@@ -17,7 +17,6 @@ def chooseFolder():
     path = askdirectory(title="Select Folder")  # shows dialog box and return the path
     fm.path = path
     return path
-    print(fm.path)
 
 
 def createFile(fname, lname):
