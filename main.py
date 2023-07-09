@@ -9,7 +9,6 @@ from tkinter import (
     Text,
     Scrollbar,
     RIGHT,
-    Y,
 )
 from tkinter.ttk import Notebook
 
