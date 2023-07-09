@@ -1,7 +1,3 @@
-import plotly.express as px
-import pandas as pd
-import numpy as np
-from tqdm import tqdm
 import re
 import demoji
 
@@ -9,7 +5,6 @@ from gensim.parsing.preprocessing import remove_stopwords
 from unidecode import unidecode
 
 from num2words import num2words
-import nltk
 from nltk.stem import WordNetLemmatizer
 
 
@@ -58,7 +53,3 @@ def preprocess_text(text):
     lemmatizer = WordNetLemmatizer()
     text = lemmatizer.lemmatize(text)
     return text
-
-# job_text = input("Enter Job Posting:\n")
-# result = preprocess_text(job_text)
-# print(result)
