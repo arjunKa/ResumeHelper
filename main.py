@@ -14,39 +14,39 @@ from tkinter.ttk import Notebook
 
 from fileManage import chooseFolder, createFile
 from readJobPosting import preprocess_text
+from topicModelling import return_topics
 
 
 class mainGUI:
     def __init__(self, master):
         padding = 3
-
-        tabmanager = Notebook(root)
-        frame = Frame(tabmanager)
-        tabmanager.pack(expand=1, fill="both")
-        tabmanager.add(frame, text="Main")
-        job_tab = Frame(tabmanager)
-        tabmanager.add(job_tab, text="Job Posting Analysis")
-
-        footer_frame = Frame(root)
-
-        footer_frame.pack(side=BOTTOM)
-
-        width = 650  # Width
-        height = 500  # Height
+        self.master = master
+        self.master.title("CV Automation")
 
         screen_width = root.winfo_screenwidth()  # Width of the screen
         screen_height = root.winfo_screenheight()  # Height of the screen
-
+        width = 650  # Width
+        height = 500  # Height
         # Calculate Starting X and Y coordinates for Window
         x = (screen_width / 2) - (width / 2)
         y = (screen_height / 2) - (height / 2)
 
-        self.master = master
-        master.title("CV Automation")
-        master.geometry("%dx%d+%d+%d" % (width, height, x, y))
-        # master.eval('tk::PlaceWindow . center')
+        self.master.geometry("%dx%d+%d+%d" % (width, height, x, y))
 
-        # frame.pack()
+        self.tabmanager = Notebook(root)
+        self.MainPage()
+        self.Page2()
+
+        footer_frame = Frame(self.tabmanager)
+        footer_frame.pack(side=BOTTOM)
+        self.close_button = Button(footer_frame, text="Close", command=self.master.quit)
+        self.close_button.pack(padx=padding, pady=padding + 10, side=BOTTOM)
+
+    def MainPage(self):
+        padding = 3
+        frame = Frame(self.tabmanager)
+        self.tabmanager.pack(expand=1, fill="both")
+        self.tabmanager.add(frame, text="Main")
 
         l = Label(frame, text="Enter Name:")
         l.config(font=("Courier", 10))
@@ -66,52 +66,14 @@ class mainGUI:
             frame, text="Generate File", command=self.gen_file
         )
 
-        self.label = Label(frame, text="This is our first GUI!")
+        self.label = Label(frame, text="Directory path for resumes:")
 
         l3 = Label(frame, text="No path selected", bg="white")
-        # T3.insert(END, "File Path")
         self.path = l3
 
         self.choose_path_button = Button(
             frame, text="Choose Path", command=self.choose_path
         )
-
-        T3 = Text(job_tab, height=13, width=60)
-        T3.insert(END, "Enter job posting text")
-        self.job_text = T3
-
-        self.job_posting_button = Button(
-            job_tab, text="Enter", command=self.process_posting
-        )
-
-        job_frame = Frame(job_tab)
-
-        scroll_bar = Scrollbar(job_frame)
-        scroll_bar.pack(side=RIGHT)
-
-        self.text_widget = Text(
-            job_frame, height=20, width=70, yscrollcommand=scroll_bar.set
-        )
-        self.text_widget.pack(side=LEFT)
-        scroll_bar.config(command=self.text_widget.yview)
-
-        self.label_job_analysis = Label(
-            job_frame,
-            text="",
-            bg="white",
-            width=100,
-            height=200,
-            wraplength=600,
-            justify="left",
-        )
-        self.label_job_analysis.config(font=("Courier", 10))
-        # self.label_job_analysis.pack(side=LEFT)
-
-        self.job_text.pack(padx=padding, pady=padding)
-        self.job_posting_button.pack(padx=padding, pady=padding)
-        job_frame.pack(padx=padding, pady=padding)
-
-        self.close_button = Button(footer_frame, text="Close", command=master.quit)
 
         l.pack(padx=padding, pady=padding)
         self.fname.pack(padx=padding, pady=padding)
@@ -121,8 +83,6 @@ class mainGUI:
         self.path.pack(padx=padding, pady=padding)
         self.choose_path_button.pack(padx=padding, pady=padding)
         self.gen_file_button.pack(padx=padding, pady=padding)
-
-        self.close_button.pack(padx=padding, pady=padding + 10, side=BOTTOM)
 
     def choose_path(self):
         print("choose folder")
@@ -134,10 +94,51 @@ class mainGUI:
         createFile(fname, lname)
 
     def process_posting(self):
-        # self.label_job_analysis.config(text=preprocess_text(self.job_text.get("1.0", "end-1c")))
-        self.text_widget.insert(
-            END, preprocess_text(self.job_text.get("1.0", "end-1c"))
+        self.text_output.delete("1.0","end")
+        self.text_output.insert(
+            END, return_topics(self.text_input.get("1.0", "end-1c"))
         )
+
+    def process_text(self):
+        self.text_output.delete("1.0","end")
+        self.text_output.insert(
+            END, preprocess_text(self.text_input.get("1.0", "end-1c"))
+        )
+
+    def Page2(self):
+        padding = 3
+        self.frame2 = Frame(self.master)
+        self.tabmanager.add(self.frame2, text="Job Posting Analysis")
+
+        T3 = Text(self.frame2, height=13, width=60)
+        T3.insert(END, "Enter job posting text")
+        self.text_input = T3
+
+        self.frame_buttons = Frame(self.frame2)
+
+        self.display_topics_button = Button(
+            self.frame_buttons, text="Generate Topics", command=self.process_posting
+        )
+        self.process_text_button = Button(
+            self.frame_buttons, text="Preprocess Text", command=self.process_text
+        )
+
+        self.frame_output = Frame(self.frame2)
+
+        scroll_bar = Scrollbar(self.frame_output)
+
+        self.text_output = Text(
+            self.frame_output, height=20, width=70, yscrollcommand=scroll_bar.set
+        )
+
+        self.text_input.pack(padx=padding, pady=padding)
+        self.frame_buttons.pack(padx=padding, pady=padding)
+        self.display_topics_button.pack(padx=padding, pady=padding, side=LEFT)
+        self.process_text_button.pack(padx=padding, pady=padding, side=LEFT)
+        self.text_output.pack(side=LEFT)
+        scroll_bar.pack(side=RIGHT)
+        scroll_bar.config(command=self.text_output.yview)
+        self.frame_output.pack(padx=padding, pady=padding)
 
 
 root = Tk()
