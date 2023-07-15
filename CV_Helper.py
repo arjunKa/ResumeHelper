@@ -21,7 +21,7 @@ class mainGUI:
     def __init__(self, master):
         padding = 3
         self.master = master
-        self.master.title("CV Automation")
+        self.master.title("CV Helper")
 
         screen_width = root.winfo_screenwidth()  # Width of the screen
         screen_height = root.winfo_screenheight()  # Height of the screen
