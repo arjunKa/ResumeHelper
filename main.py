@@ -1,21 +1,10 @@
 from tkinter import (
     BOTTOM,
-    END,
-    LEFT,
     Frame,
-    Tk,
-    Label,
-    Button,
-    Text,
-    Scrollbar,
-    RIGHT,
+    Button
 )
 from tkinter.ttk import Notebook
 import tkinter as tk
-from Modules.pdfReader import choosePdf, readPdf
-from Modules.fileManage import chooseFolder, createFile
-from Modules.readJobPosting import preprocess_text
-from Modules.topicModelling import return_topics
 
 from Pages.JobPosting import JobPosting
 from Pages.MainPage import MainPage
@@ -57,14 +46,6 @@ class MainApplication(tk.Tk):
         self.close_button.pack(padx=padding, pady=padding + 10, side=BOTTOM)
 
     
-
-    def pdf_action(self):
-        
-        self.text_output.delete("1.0","end")
-        self.text_output.insert(
-            END, preprocess_text(self.text_input.get("1.0", "end-1c"))
-        )
-
 
 if __name__ == "__main__":
     app = MainApplication()

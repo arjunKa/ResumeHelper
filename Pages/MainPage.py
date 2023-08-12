@@ -1,8 +1,6 @@
-from tkinter import LEFT, Button, Frame, Scrollbar, Text, END, Label
+from tkinter import Button, Frame, Text, END, Label
 import tkinter as tk
 from Modules.fileManage import chooseFolder, createFile
-from Modules.readJobPosting import preprocess_text
-from Modules.topicModelling import return_topics
 
 class MainPage(tk.Frame):
     def __init__(self, master, controller):

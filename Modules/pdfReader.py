@@ -1,6 +1,5 @@
 # importing required modules
 from tkinter.filedialog import askdirectory
-from PyPDF2 import PdfReader
 from pdfquery import PDFQuery
   
 def readPdf(path) :

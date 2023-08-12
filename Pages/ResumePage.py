@@ -1,10 +1,11 @@
-from tkinter import BOTTOM, LEFT, Button, Frame, Scrollbar, Text, END, Label, filedialog
+from tkinter import LEFT, Button, Frame, Text, END, Label, filedialog
 import tkinter as tk
-from Modules.readJobPosting import *
-from Modules.topicModelling import *
-from Modules.fileManage import *
-from Modules.pdfReader import *
+from Modules.readJobPosting import preprocess_text
+from Modules.pdfReader import readPdf
+
 import json
+import sys
+import os
 
 
 class ResumePage(tk.Frame):
@@ -78,9 +79,21 @@ class ResumePage(tk.Frame):
         self.file_path = file_path
         return file_path
 
+    def get_packaged_files_path(self):
+        """Location of relative paths """
+        if getattr(sys, 'frozen', False):
+            path = sys._MEIPASS  # pylint: disable=no-member
+        else:
+            path = '.'
+
+        return path
+
     def get_posting_skills(self):
         out = []
-        with open("languages.json", "r") as file:
+
+        filepath = self.get_packaged_files_path()
+        filename = os.path.join(filepath, 'languages.json')
+        with open(filename, "r") as file:
             data = json.load(file)
         posting_words = preprocess_text(self.text_input.get("1.0", "end-1c")).split()
         data = [word.lower() for word in data]
