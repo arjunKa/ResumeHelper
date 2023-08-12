@@ -1,6 +1,6 @@
 from gensim.corpora.dictionary import Dictionary
 from gensim.models.ldamodel import LdaModel
-from readJobPosting import *
+from Modules.readJobPosting import *
 
 
 def preprocess_text2(text):
