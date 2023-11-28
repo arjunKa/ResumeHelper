@@ -35,7 +35,7 @@ class JobPosting(tk.Frame):
         self.text_output.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
         scroll_bar = Scrollbar(self.frame_output, command=self.text_output.yview)
         self.text_output['yscrollcommand'] = scroll_bar.set
-        self.text_output.config(font=("consolas", 12), undo=True, wrap='word')
+        self.text_output.config(font=("Arial", 12), undo=True, wrap='word')
         scroll_bar.grid(row=0, column=1, sticky='nsew')
 
         self.frame2.pack(padx=padding, pady=padding)

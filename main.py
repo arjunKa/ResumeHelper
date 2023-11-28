@@ -3,7 +3,7 @@ from tkinter.ttk import Notebook
 import tkinter as tk
 
 from Pages.JobPosting import JobPosting
-from Pages.MainPage import MainPage
+#from Pages.MainPage import MainPage
 from Pages.ResumePage import ResumePage
 
 
@@ -11,7 +11,7 @@ class MainApplication(tk.Tk):
     def __init__(self):
         super().__init__()
         padding = 3
-        self.title("CV Helper")
+        self.title("Resume Helper")
 
         screen_width = self.winfo_screenwidth()  # Width of the screen
         screen_height = self.winfo_screenheight()  # Height of the screen
@@ -29,13 +29,13 @@ class MainApplication(tk.Tk):
         self.tabmanager.grid_rowconfigure(0, weight=1)
         self.tabmanager.grid_columnconfigure(0, weight=1)
 
-        frame = MainPage(self.tabmanager, self)
+        #frame = MainPage(self.tabmanager, self)
         frame2 = JobPosting(self.tabmanager, self)
         frame3 = ResumePage(self.tabmanager, self)
 
-        self.tabmanager.add(frame, text="Main")
-        self.tabmanager.add(frame2, text="Job Posting Analysis")
-        self.tabmanager.add(frame3, text="Resume-Job Posting")
+        #self.tabmanager.add(frame, text="Main")
+        self.tabmanager.add(frame3, text="ATS Check Resume")
+        self.tabmanager.add(frame2, text="Analyze Job Posting")
 
         footer_frame = Frame(self.tabmanager)
         footer_frame.pack(side=BOTTOM)

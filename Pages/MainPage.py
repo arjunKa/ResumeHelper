@@ -2,12 +2,16 @@ from tkinter import Button, Frame, Text, END, Label
 import tkinter as tk
 from Modules.fileManage import chooseFolder, createFile
 
+
 class MainPage(tk.Frame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
         padding = 3
         frame = Frame(self)
+
+        mainText = Label(frame, text="Generate an empty .docx file With your\n first and last Name as the file name.")
+        mainText.config(font=("Arial", 12))
 
         l = Label(frame, text="Enter Name:")
         l.config(font=("Courier", 10))
@@ -30,13 +34,13 @@ class MainPage(tk.Frame):
         self.label = Label(frame, text="Directory path for resumes:")
 
         self.path = Label(frame, text="No path selected", bg="white")
-        
 
         self.choose_path_button = Button(
             frame, text="Choose Path", command=self.choose_path
         )
 
         frame.pack(padx=padding, pady=padding)
+        mainText.pack(padx=padding, pady=padding)
         l.pack(padx=padding, pady=padding)
         self.fname.pack(padx=padding, pady=padding)
         self.lname.pack(padx=padding, pady=padding)

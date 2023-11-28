@@ -20,8 +20,10 @@ class ResumePage(tk.Frame):
         self.frame_upper.pack(padx=padding, pady=padding)
 
         self.frame_pdf = Frame(self.frame_upper)
-        self.frame_pdf.pack(padx=padding, pady=padding, side=LEFT)
-        self.label = Label(self.frame_pdf, text="Resume file (PDF):")
+        self.frame_pdf.pack(padx=padding, pady=padding)
+        self.label = Label(self.frame_pdf, text="Choose Resume file (PDF):")
+        self.label.config(font=("Arial", 11))
+        
         self.label.pack(padx=padding, pady=padding)
         self.path = Label(self.frame_pdf, text="No file selected", bg="white")
         self.path.pack(padx=padding, pady=padding)
@@ -33,13 +35,16 @@ class ResumePage(tk.Frame):
         self.read_pdf_button = Button(
             self.frame_buttons, text="Read PDF", command=self.read_file
         )
-        self.read_pdf_button.pack(padx=padding, pady=padding, side=LEFT)
+        
         self.choose_path_button.pack(padx=padding, pady=padding, side=LEFT)
+        self.read_pdf_button.pack(padx=padding, pady=padding, side=LEFT)
         self.frame_buttons.pack(padx=padding, pady=padding)
 
         self.job_input = Frame(self.frame_upper)
-        self.job_input.pack(padx=padding, pady=padding, side=LEFT)
+        self.job_input.pack(padx=padding, pady=padding)
         self.main_label = Label(self.job_input, text="Enter job posting text here:")
+        self.main_label.config(font=("Arial", 11))
+        
         self.text_input = Text(
             self.job_input, height=7, width=30, undo=True, wrap="word"
         )
@@ -51,7 +56,8 @@ class ResumePage(tk.Frame):
         self.frame_output = Frame(self.frame)
         self.frame_output.pack(padx=padding, pady=padding)
 
-        self.output_label = Label(self.frame, text="Skills/Topics:")
+        self.output_label = Label(self.frame, text="Skills/Topics Identified:")
+        self.output_label.config(font=("Arial", 11))
         self.output_label.pack(padx=padding, pady=padding)
 
         self.text_output = Text(self.frame, height=7, width=30)
