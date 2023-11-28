@@ -7,7 +7,7 @@ def preprocess_text2(text):
     if text is None:
       return []
     text = remove_punctuation(text)
-    text = demoji.replace(text, '')
+    #text = demoji.replace(text, '')
     text = unidecode(text)
     text = convert_numbers(text)
     text= text.strip()

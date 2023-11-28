@@ -4,9 +4,7 @@ from Modules.readJobPosting import preprocess_text
 from Modules.pdfReader import readPdf
 from Modules.data import getData
 
-import json
 import sys
-import os
 
 
 class ResumePage(tk.Frame):

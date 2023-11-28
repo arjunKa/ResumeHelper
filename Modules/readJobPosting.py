@@ -1,5 +1,5 @@
 import re
-import demoji
+#import demoji
 
 from gensim.parsing.preprocessing import remove_stopwords
 from unidecode import unidecode
@@ -44,7 +44,7 @@ def preprocess_text(text):
     if text is None:
         return []
     text = remove_punctuation(text)
-    text = demoji.replace(text, "")
+    # text = demoji.replace(text, "")
     text = unidecode(text)
     text = convert_numbers(text)
     text = text.strip()
