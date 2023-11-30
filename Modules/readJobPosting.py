@@ -1,3 +1,4 @@
+from re import findall
 import re
 #import demoji
 
@@ -15,7 +16,7 @@ def lemmatizer(text):
 
 def convert_numbers(text):
     # Find all numbers in the text
-    numbers = re.findall(r"\d+", text)
+    numbers = findall(r"\d+", text)
 
     # Replace each number with its full form
     for number in numbers:
@@ -33,7 +34,8 @@ string.punctuation
 
 # defining the function to remove punctuation
 def remove_punctuation(text):
-    punctuationfree = "".join([i for i in text if i not in string.punctuation])
+    new_punctuation = ''.join(char for char in string.punctuation if char not in ['+', '#', '.'])
+    punctuationfree = "".join([i for i in text if i not in new_punctuation])
     return punctuationfree
 
 
@@ -43,8 +45,9 @@ def remove_punctuation(text):
 def preprocess_text(text):
     if text is None:
         return []
+    words = re.findall(r'\b(?:\w+\.?\w*|\w+\+?\w*)\b', text)
     text = remove_punctuation(text)
-    # text = demoji.replace(text, "")
+    #text = demoji.replace(text, "")
     text = unidecode(text)
     text = convert_numbers(text)
     text = text.strip()
@@ -52,4 +55,13 @@ def preprocess_text(text):
     text = remove_stopwords(text)
     lemmatizer = WordNetLemmatizer()
     text = lemmatizer.lemmatize(text)
-    return text
+    #print(text)
+    return words
+
+def preprocess_posting_text(text):
+    if text is None:
+        return []
+    words = re.findall(r'\b(?:\w+\.?\w*|\w+)\b', text)
+    lowercase_words = [word.lower() for word in words]
+    
+    return lowercase_words

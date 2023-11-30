@@ -1,6 +1,6 @@
 from tkinter.filedialog import askdirectory
 from datetime import datetime
-import os
+from os.path import join
 
 x = datetime.now()
 
@@ -21,7 +21,7 @@ def chooseFolder():
 
 def createFile(fname, lname):
     x = datetime.now()
-    file_path = os.path.join(
+    file_path = join(
         fm.path,
         "Resume_"
         + fname.strip().replace(" ", "")

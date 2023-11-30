@@ -1,4 +1,5 @@
 # importing required modules
+import re
 from tkinter.filedialog import askdirectory
 from pdfquery import PDFQuery
 
@@ -12,7 +13,13 @@ def readPdf(path):
 
     # Extract the text from the elements
     text = [t.text for t in text_elements]
-    return text
+    text2=[]
+    for ele in text:
+        temp = re.findall(r'\b(?:\w+\.?\w*|\w+\+?\w*)\b', ele)
+        for word in temp:
+            text2.append(word.lower())
+    
+    return text2
 
 
 def choosePdf():

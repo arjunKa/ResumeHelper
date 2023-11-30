@@ -608,6 +608,7 @@ data = [
     "SPIN",
     "SP/k",
     "SPS",
+    "SQL",
     "Squeak",
     "Squirrel",
     "SR",
@@ -707,4 +708,4 @@ data = [
     "Zeno",
     "ZOPL",
     "ZPL",
-]
+] + ["ASP.NET"]
