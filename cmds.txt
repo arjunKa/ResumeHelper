@@ -1,3 +1,0 @@
-./ResumeHelper.msi /qn
-
-pyinstaller --onefile -w -F --add-data "RH.ico;." --icon=RH.ico --name ResumeHelper main.py 
