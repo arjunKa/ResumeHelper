@@ -1,6 +1,6 @@
 from tkinter import LEFT, Button, Frame, Text, END, Label, filedialog
 import tkinter as tk
-from Modules.readJobPosting import preprocess_posting_text
+from Modules.readJobPosting import preprocessPostingText
 from Modules.pdfReader import readPdf
 from Modules.data import getData
 import sys
@@ -15,7 +15,7 @@ class ResumePage(tk.Frame):
         self.frame = Frame(self)
         # self['bg'] = "white"
         self.frame.pack(padx=padding, pady=padding)
-        self.file_path = ""
+        self.file_path = None
 
         self.frame_upper = Frame(self.frame)
         self.frame_upper.pack(padx=padding, pady=padding)
@@ -51,7 +51,6 @@ class ResumePage(tk.Frame):
         self.text_input = Text(
             self.job_input, height=8, width=30, undo=True, wrap="word"
         )
-        self.text_input.insert(END, "Enter job posting text")
         self.text_input.config(font=("arial", 10), undo=True, wrap="word")
         self.main_label.pack(padx=padding, pady=padding)
         self.text_input.pack(padx=padding, pady=padding)
@@ -70,17 +69,17 @@ class ResumePage(tk.Frame):
         self.text_output.config(font=("arial", 10), undo=True, wrap="word")
 
     def choose_path(self):
-        file_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
-        if file_path:
-            print("Selected PDF file path:", file_path)
+        self.file_path= None
+        self.file_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
+        if self.file_path:
+            print("Selected PDF file path:", self.file_path)
         else:
             print("No PDF file selected.")
-            self.file_path == ""
+            self.file_path == None
             self.path.config(text="No file selected")
             return
-        self.path.config(text=file_path)
-        self.file_path = file_path
-        return file_path
+        self.path.config(text=self.file_path)
+        
 
     def get_packaged_files_path(self):
         """Location of relative paths"""
@@ -92,16 +91,15 @@ class ResumePage(tk.Frame):
         return path
 
     def ATS_Check(self):
-        if self.file_path == "":
-            return
         self.text_output.delete("1.0", "end")
 
-        pdf_text = readPdf(self.path.cget("text"))
-        # print(pdf_text)
+        if not self.file_path:
+            return
+        pdf_text = readPdf(self.file_path)
 
-        skills_in_pdf = self.check_skills(pdf_text)
-        skills_in_posting = self.check_skills(
-            preprocess_posting_text(self.text_input.get("1.0", "end-1c"))
+        skills_in_pdf = self.checkSkills(pdf_text)
+        skills_in_posting = self.checkSkills(
+            preprocessPostingText(self.text_input.get("1.0", "end-1c"))
         )
         for t in skills_in_posting:
             if t in skills_in_pdf:
@@ -109,14 +107,14 @@ class ResumePage(tk.Frame):
             else:
                 self.text_output.insert(END, t + " (X)" + "\n")
 
-    def check_skills(self, text):
+    def checkSkills(self, text):
         data = getData()
         word_data = [word.lower() for word in data]
-        listOfSkills = []
+        listOfSkills = set()
         n = len(word_data)
 
         for i in range(n):
-            if word_data[i] in text:
-                listOfSkills.append(data[i])
+            if word_data[i] in text and word_data[i] not in listOfSkills:
+                listOfSkills.add(data[i])
 
         return listOfSkills

@@ -1,10 +1,8 @@
-from re import findall
-import re
-
-def preprocess_posting_text(text):
+def preprocessPostingText(text):
     if text is None:
         return []
-    words = re.findall(r'\b(?:\w+\.?\w*|\w+)\b', text)
-    lowercase_words = [word.lower() for word in words]
-    
-    return lowercase_words
+    #words = findall(r'\b(?:[A-Za-z]+|[A-Za-z]\+[A-Za-z]+|\w+\.\w+|\w+\.\w+\.?\w*)\b', text)
+    words = text.split()
+    textOut = [word.lower().rstrip('.,;') for word in words]
+
+    return textOut

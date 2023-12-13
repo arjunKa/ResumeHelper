@@ -4,6 +4,7 @@ from os.path import join
 from tkinter import BOTTOM, Frame, Button
 from tkinter.ttk import Notebook
 import tkinter as tk
+import re
 
 from Pages.ResumePage import ResumePage
 
@@ -26,7 +27,7 @@ class MainApplication(tk.Tk):
 
         icon_path = resource_path(
             ".\ResumeHelperTaskBarIcon.ico"
-        )  # Change this to the actual path of your icon file
+        )  #path of icon file
         self.iconbitmap(icon_path)
 
         screen_width = self.winfo_screenwidth()  # Width of the screen
@@ -63,3 +64,5 @@ class MainApplication(tk.Tk):
 if __name__ == "__main__":
     app = MainApplication()
     app.mainloop()
+
+
