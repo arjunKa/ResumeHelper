@@ -1,4 +1,6 @@
 # CV Helper
+Download the App: https://arjunappstorage.blob.core.windows.net/downloads/1.0/ResumeHelper.msi
+
 A python app with an easy to use GUI that allows you to paste a job posting and extract the main points, skills and keywords to highlight in your resume.
 
 - App analyzes job posting and your resume pdf to determine commonalites and any missing skills to include
